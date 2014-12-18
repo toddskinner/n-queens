@@ -43,27 +43,23 @@ window.countNRooksSolutions = function(n) {
   var board = new Board({n: n});
   var solutionCount = 0; //fixme
 
-    var countRooks = function(rooksLeft, rowIndex){
-      for(var col = 0; col < n; col++){
-      if (rooksLeft === 0) {
-        return solutionCount++;
+    var countRooks = function(rowIndex){
+      if (rowIndex === n) {
+        //solutionCount++;
+        return;
       }
-      board.togglePiece(rowIndex, col);
-      if(board.hasAnyRooksConflicts()){
+      for(var col = 0; col < n; col++){
+        //console.log(board[n]);
         board.togglePiece(rowIndex, col);
-        countRooks(rooksLeft, rowIndex+1);
-      } else {
-        rooksLeft--;
-        if(rooksLeft > 0){
-          if(rowIndex <= n){
-            countRooks(rooksLeft, rowIndex+1);
-          }
+        if(board.hasAnyRooksConflicts()){
+          board.togglePiece(rowIndex, col);
         }
       }
-    }
-  }
+      solutionCount++;
+      countRooks(rowIndex+1);
+    };
 
-  countRooks(n, 0);
+  countRooks(0);
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
