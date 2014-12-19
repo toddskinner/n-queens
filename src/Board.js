@@ -148,12 +148,14 @@
       var iIndex = majorDiagonalColumnIndexAtFirstRow;
       var size = this.get('n');
      // while(iIndex <= size){
-        for(var i = 0; iIndex < size; i++){
+      for(var i = 0; i < size; i++){
 
-          var row = this.get(i);
+        var row = this.get(i);
+        if (row[iIndex] === 1) {
           count += row[ iIndex ];
-          iIndex += 1;
         }
+        iIndex += 1;
+      }
       return count > 1; // fixme
     },
     // test if any major diagonals on this board contain conflicts
@@ -175,12 +177,14 @@
       var iIndex = minorDiagonalColumnIndexAtFirstRow;
       var size = this.get('n');
      // while(iIndex <= size){
-        for(var i = 0; iIndex >= 0; i++){
+      for(var i = iIndex; i <= 0; i--){
 
-          var row = this.get(i);
+        var row = this.get(i);
+        if (row[i] === 1) {
           count += row[ iIndex ];
-          iIndex -= 1;
         }
+        //iIndex -= 1;
+      }
       return count > 1; // fixme
       //return false; // fixme
     },
